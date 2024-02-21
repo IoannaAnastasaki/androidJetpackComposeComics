@@ -27,6 +27,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String","MARVEL_KEY", apikeyProperties["MARVEL_KEY"].toString())
+        buildConfigField("String","MARVEL_SECRET", apikeyProperties["MARVEL_SECRET"].toString())
     }
 
     buildTypes {
@@ -47,6 +50,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"

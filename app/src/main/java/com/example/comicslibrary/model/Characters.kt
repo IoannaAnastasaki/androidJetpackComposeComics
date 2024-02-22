@@ -1,5 +1,16 @@
 package com.example.comicslibrary.model
 
+/*
+* Data classes
+* https://medium.com/@humzakhalid94/exploring-data-classes-in-kotlin-simplify-your-code-with-ease-fc52dea3e81a
+*
+* Polu kalo arthro sto medium. Sthn ousia oi data classes sufkritika me tis aples,
+* dinoun kapoia pragmata etoima xwris na xreiazetai na grapsoume extra kodika p tha grafame kanonika.
+* Ta poio shmantika einai to equality(==) metakty antikeimenwn, toString se antikeimena, hash code antikeimenwn(taytothta tous),
+* copy antikeimena kanontas modify kapoia values tous an thelw na dhmioyrghsw ena neo(xrhsimo se
+* objects me polles parametrous an thelw na allazw liges kathe fora)
+* */
+
 data class CharactersApiResponse(
     val code: String?,
     val status: String?,

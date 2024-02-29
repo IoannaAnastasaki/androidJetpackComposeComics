@@ -2,6 +2,7 @@ package com.example.comicslibrary.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.comicslibrary.connectivity.ConnectivityMonitor
 import com.example.comicslibrary.model.api.MarvelApiRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,13 +20,14 @@ import javax.inject.Inject
 *to @Inject ston constructor
 * */
 @HiltViewModel
-class LibraryApiViewModel @Inject constructor(private val repo: MarvelApiRepo): ViewModel() {
+class LibraryApiViewModel @Inject constructor(private val repo: MarvelApiRepo, connectivityMonitor: ConnectivityMonitor): ViewModel() {
     val result = repo.characters
     val queryText = MutableStateFlow("")
     //https://kt.academy/article/cc-channel  -> polu kalo arthro!!xrhsimo link
     //ta Channels douleuoyn vohthitika me tis coroutines
     private val queryInput = Channel<String>(Channel.CONFLATED)
     val characterDetails = repo.characterDetails
+    val networkAvailable = connectivityMonitor
 
     init {
         retrieveCharacters()

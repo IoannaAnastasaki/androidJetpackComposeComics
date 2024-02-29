@@ -35,6 +35,7 @@ import androidx.navigation.NavHostController
 import com.example.comicslibrary.AttributionText
 import com.example.comicslibrary.CharacterImage
 import com.example.comicslibrary.Destination
+import com.example.comicslibrary.connectivity.ConnectivityObservable
 import com.example.comicslibrary.model.CharactersApiResponse
 import com.example.comicslibrary.model.api.NetworkResult
 import com.example.comicslibrary.viewmodel.LibraryApiViewModel
@@ -47,6 +48,7 @@ fun LibraryScreen(
 ) {
     val result by vm.result.collectAsState()
     val text = vm.queryText.collectAsState()
+    val networkAvailable = vm.networkAvailable.observe().collectAsState(ConnectivityObservable.Status.Available)
 
     //column poy gemizei thn othoni, exei to padding
     Column(
@@ -55,6 +57,14 @@ fun LibraryScreen(
             .padding(bottom = paddingValues.calculateBottomPadding()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        if (networkAvailable.value == ConnectivityObservable.Status.Unavailable) {
+            Row(modifier = Modifier.fillMaxWidth().background(Color.Red),
+                horizontalArrangement = Arrangement.Center) {
+                Text(text = "Network unavailable", FontWeight = FontWeight.Bold,
+                    color = Color.White, modifier = Modifier.padding(16.dp))
+            }
+        }
 
     //search field
         /*

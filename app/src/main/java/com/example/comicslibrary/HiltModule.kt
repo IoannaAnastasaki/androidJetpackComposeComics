@@ -2,6 +2,7 @@ package com.example.comicslibrary
 
 import android.content.Context
 import androidx.room.Room
+import com.example.comicslibrary.connectivity.ConnectivityMonitor
 import com.example.comicslibrary.model.api.ApiService
 import com.example.comicslibrary.model.api.MarvelApiRepo
 import com.example.comicslibrary.model.db.CharacterDao
@@ -37,4 +38,7 @@ class HiltModule {
     @Provides
     fun provideDbRepoImpl(characterDao: CharacterDao): CollectionDBRepo = CollectionDBRepoImpl(characterDao)
 
+    @Provides
+    fun provideConnectivityManager(@ApplicationContext context: Context) =
+        ConnectivityMonitor.getInstance(context)
 }

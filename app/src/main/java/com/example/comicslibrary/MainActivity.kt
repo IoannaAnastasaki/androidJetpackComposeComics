@@ -1,6 +1,7 @@
 package com.example.comicslibrary
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -10,11 +11,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.comicslibrary.ui.theme.ComicsLibraryTheme
+import com.example.comicslibrary.view.CharacterDetailScreen
 import com.example.comicslibrary.view.CharactersBottomNav
 import com.example.comicslibrary.view.CollectionScreen
 import com.example.comicslibrary.view.LibraryScreen
@@ -69,6 +72,7 @@ fun CharacterScaffold(navController: NavHostController, lvm: LibraryApiViewModel
     //tha kseroume pou eimaste sto scaffold, wste to swsto link
     //na ginei highlight otan patisoume se mia sygekrimenh othoni
     val scaffoldState = rememberScaffoldState()
+    val ctx = LocalContext.current
 
   androidx.compose.material.Scaffold(
       scaffoldState = scaffoldState,
@@ -84,7 +88,14 @@ fun CharacterScaffold(navController: NavHostController, lvm: LibraryApiViewModel
                 CollectionScreen()
             }
             composable(Destination.CharacterDetail.route) { navBackStackEntry ->
-
+               //edw kanoume retrieve to id pou kaname store sto route
+                val id = navBackStackEntry.arguments?.getString("characterId")?.toIntOrNull()
+                if (id == null)
+                    Toast.makeText(ctx, "Character id is requires", Toast.LENGTH_SHORT).show()
+                else {
+                    lvm.retrieveSingleCharacter(id)
+                    CharacterDetailScreen(lvm = lvm,  paddingValues = paddingValues, navController = navController )
+                }
             }
         }
    }

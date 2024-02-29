@@ -1,5 +1,6 @@
 package com.example.comicslibrary.model.api
 
+//polu kalos tropos xrhsimopoiontas sealed classes na exoun oi klasseis h data h message h tpt
 sealed class NetworkResult<T>(
     val data: T? = null,
     val message: String? = null

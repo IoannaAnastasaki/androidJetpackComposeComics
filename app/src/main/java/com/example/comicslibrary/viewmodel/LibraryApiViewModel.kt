@@ -25,6 +25,7 @@ class LibraryApiViewModel @Inject constructor(private val repo: MarvelApiRepo): 
     //https://kt.academy/article/cc-channel  -> polu kalo arthro!!xrhsimo link
     //ta Channels douleuoyn vohthitika me tis coroutines
     private val queryInput = Channel<String>(Channel.CONFLATED)
+    val characterDetails = repo.characterDetails
 
     init {
         retrieveCharacters()
@@ -68,6 +69,10 @@ class LibraryApiViewModel @Inject constructor(private val repo: MarvelApiRepo): 
         //to channel tha kanei receive ena flow,tha to kanei filter kai debounce
         //kai tha kanei invoke to repo query, to ui tha kanei connect me to result kai tha ananewthei
         queryInput.trySend(input)
+    }
+
+    fun retrieveSingleCharacter(id: Int) {
+        repo.getSingleCharacter(id)
     }
 
 }
